@@ -1,7 +1,6 @@
 namespace DomainModel;
 
-public class EntryModel
-{
+public class EntryModel { 
     public int Id { get; set; }
     public DateTime TimeStamp { get; set; }
     public int Boarded { get; set; }
