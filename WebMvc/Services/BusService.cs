@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainModel;
 using Microsoft.VisualBasic;
-using WebMvc.DB;
+//using WebMvc.DB;
 
 namespace WebMvc.Services;
 
@@ -29,7 +29,7 @@ public class BusService : BusServiceInterface {
     }
 
     public void createBus(int busNumber) {
-        var newBus = new DB.Bus { BusNumber = busNumber };
+        var newBus = new Services.Bus { BusNumber = busNumber };
         _busShuttleDockerDB.Bus.Add(newBus);
         _busShuttleDockerDB.SaveChanges();
     }

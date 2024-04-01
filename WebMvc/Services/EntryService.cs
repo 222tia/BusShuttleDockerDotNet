@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainModel;
 using Microsoft.VisualBasic;
-using WebMvc.DB;
+//using WebMvc.DB;
 
 namespace WebMvc.Services;
 
@@ -31,7 +31,7 @@ namespace WebMvc.Services;
     }
 
     public void createEntry(DateTime timeStamp, int boarded, int leftBehind) {
-        var newEntry = new DB.Entry { TimeStamp = timeStamp, Boarded = boarded, LeftBehind = leftBehind };
+        var newEntry = new Services.Entry { TimeStamp = timeStamp, Boarded = boarded, LeftBehind = leftBehind };
         _busShuttleDockerDB.Entry.Add(newEntry);
         _busShuttleDockerDB.SaveChanges();
     }

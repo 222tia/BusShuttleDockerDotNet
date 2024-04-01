@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace WebMvc.DB;
+namespace WebMvc.Services;
 
 public class BusShuttleDocker : DbContext {
     public DbSet<Bus> Bus { get; set; }

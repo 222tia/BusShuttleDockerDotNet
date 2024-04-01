@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebMvc.DB;
+using WebMvc.Services;
 
 #nullable disable
 
@@ -20,7 +20,7 @@ namespace WebMvc.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
 
-            modelBuilder.Entity("WebMvc.DB.Bus", b =>
+            modelBuilder.Entity("WebMvc.Services.Bus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace WebMvc.Migrations
                     b.ToTable("Bus");
                 });
 
-            modelBuilder.Entity("WebMvc.DB.Driver", b =>
+            modelBuilder.Entity("WebMvc.Services.Driver", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace WebMvc.Migrations
                     b.ToTable("Driver");
                 });
 
-            modelBuilder.Entity("WebMvc.DB.Entry", b =>
+            modelBuilder.Entity("WebMvc.Services.Entry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,7 +73,7 @@ namespace WebMvc.Migrations
                     b.ToTable("Entry");
                 });
 
-            modelBuilder.Entity("WebMvc.DB.Loop", b =>
+            modelBuilder.Entity("WebMvc.Services.Loop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace WebMvc.Migrations
                     b.ToTable("Loop");
                 });
 
-            modelBuilder.Entity("WebMvc.DB.Route", b =>
+            modelBuilder.Entity("WebMvc.Services.Route", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +102,7 @@ namespace WebMvc.Migrations
                     b.ToTable("Route");
                 });
 
-            modelBuilder.Entity("WebMvc.DB.Stop", b =>
+            modelBuilder.Entity("WebMvc.Services.Stop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +123,7 @@ namespace WebMvc.Migrations
                     b.ToTable("Stop");
                 });
 
-            modelBuilder.Entity("WebMvc.DB.User", b =>
+            modelBuilder.Entity("WebMvc.Services.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

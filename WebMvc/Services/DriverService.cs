@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainModel;
 using Microsoft.VisualBasic;
-using WebMvc.DB;
+//using WebMvc.DB;
 
 namespace WebMvc.Services;
 
@@ -30,7 +30,7 @@ public class DriverService : DriverServiceInterface {
     }
 
     public void createDriver(string firstname, string lastname) {
-        var newDriver = new DB.Driver { FirstName = firstname, LastName = lastname };
+        var newDriver = new Services.Driver { FirstName = firstname, LastName = lastname };
         _busShuttleDockerDB.Driver.Add(newDriver);
         _busShuttleDockerDB.SaveChanges();
     }
