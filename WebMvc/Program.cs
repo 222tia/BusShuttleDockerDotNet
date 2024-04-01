@@ -17,7 +17,6 @@ public class Program
 
         builder.Services.AddDbContext<BusShuttleDocker>(Options => Options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddScoped<BusServiceInterface, BusService>();
-        builder.Services.AddScoped<UserServiceInterface, UserService>();
         
 
         var app = builder.Build();

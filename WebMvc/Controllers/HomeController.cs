@@ -10,13 +10,11 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     BusServiceInterface busService;
-    UserServiceInterface userService;
 
-    public HomeController(ILogger<HomeController> logger, BusServiceInterface busService, UserServiceInterface userService)
+    public HomeController(ILogger<HomeController> logger, BusServiceInterface busService)
     {
         _logger = logger;
         this.busService = busService;
-        this.userService = userService;
     }
 
     public IActionResult Index()
@@ -29,7 +27,7 @@ public class HomeController : Controller
         return View();
     }
 
-    // ---------------- BUS ---------------- 
+     // ---------------- BUS ---------------- 
 
     public IActionResult BusView() {
         return View(this.busService.getAllBusses().Select(b => BusViewModel.FromBus(b)));
@@ -79,52 +77,6 @@ public class HomeController : Controller
 
     // ---------------- USER ---------------- 
 
-    public IActionResult UserView() {
-        return View(this.userService.getAllUsers().Select(u => UserViewModel.FromUser(u)));
-    }
-
-    public IActionResult UserCreate(){
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> UserCreate([Bind("User")] UserCreateModel user) {
-        if (ModelState.IsValid) {
-            this.userService.createUser(user.Id, user.FirstName, user.LastName, user.UserName, user.Password);
-            return RedirectToAction("UserView");
-        } else {
-            return View();
-        }
-    }
-
-    public IActionResult UserEdit([FromRoute] int id) {
-        var user = this.userService.findUserByID(id);
-        return View(UserEditModel.FromUser(user));
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> UserEdit(int id, [Bind("User")] UserEditModel user) {
-        if (ModelState.IsValid) {
-            this.userService.updateUserByID(id, user.FirstName, user.LastName, user.UserName, user.Password);
-            return RedirectToAction("UserView");
-        } else {
-            return View(user);
-        }
-    }
-
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult UserDelete(int id) {
-        if (ModelState.IsValid) {
-            this.userService.deleteUserByID(id);
-            return RedirectToAction("UserView");
-        } else {
-            return View();
-        }
-    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
