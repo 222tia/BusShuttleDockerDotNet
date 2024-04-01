@@ -22,13 +22,14 @@ public class BusService : BusServiceInterface {
     public void updateBusByID(int id, int newBusNumber) {
         var existingBus = _busShuttleDockerDB.Bus.Find(id);
         if (existingBus != null) {
+
             existingBus.BusNumber = newBusNumber;
             _busShuttleDockerDB.SaveChanges();
         }
     }
 
-    public void createBus(int busNumber) {
-        var newBus = new Services.Bus { BusNumber = busNumber };
+    public void createBus(int id, int busNumber) {
+        var newBus = new Services.Bus { Id = id, BusNumber = busNumber };
         _busShuttleDockerDB.Bus.Add(newBus);
         _busShuttleDockerDB.SaveChanges();
     }
