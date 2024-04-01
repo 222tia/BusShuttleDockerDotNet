@@ -9,9 +9,9 @@ namespace WebMvc.Services;
 
 public class DriverService : DriverServiceInterface {
 
-    private readonly BusShuttleDockerDB _busShuttleDockerDB;
+    private readonly BusShuttleDocker _busShuttleDockerDB;
 
-    public DriverService(BusShuttleDockerDB busShuttleDockerDB) {
+    public DriverService(BusShuttleDocker busShuttleDockerDB) {
             _busShuttleDockerDB = busShuttleDockerDB;
     }
 
@@ -30,10 +30,7 @@ public class DriverService : DriverServiceInterface {
     }
 
     public void createDriver(string firstname, string lastname) {
-        var newDriver = new Database.Driver {
-            FirstName = firstname,
-            LastName = lastname
-        };
+        var newDriver = new DB.Driver { FirstName = firstname, LastName = lastname };
         _busShuttleDockerDB.Driver.Add(newDriver);
         _busShuttleDockerDB.SaveChanges();
     }

@@ -9,9 +9,9 @@ namespace WebMvc.Services;
 
 public class BusService : BusServiceInterface {
 
-    private readonly BusShuttleDockerDB _busShuttleDockerDB;
+    private readonly BusShuttleDocker _busShuttleDockerDB;
 
-    public BusService(BusShuttleDockerDB busShuttleDockerDB) {
+    public BusService(BusShuttleDocker busShuttleDockerDB) {
         _busShuttleDockerDB = busShuttleDockerDB;
     }
 
@@ -29,9 +29,7 @@ public class BusService : BusServiceInterface {
     }
 
     public void createBus(int busNumber) {
-        var newBus = new Database.Bus { 
-            BusNumber = busNumber
-        };
+        var newBus = new DB.Bus { BusNumber = busNumber };
         _busShuttleDockerDB.Bus.Add(newBus);
         _busShuttleDockerDB.SaveChanges();
     }
@@ -47,7 +45,7 @@ public class BusService : BusServiceInterface {
     public void deleteBusByID(int id) {
         var existingBus = _busShuttleDockerDB.Bus.Find(id);
         if (existingBus != null) {
-            _busShuttleDockerDB.Bus.Remove(bus);
+            _busShuttleDockerDB.Bus.Remove(existingBus);
             _busShuttleDockerDB.SaveChanges();
         }
     }
