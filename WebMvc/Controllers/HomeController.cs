@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebMvc.Models;
+using WebMvc.Services;
 using DomainModel;
 
 namespace WebMvc.Controllers;
@@ -8,10 +9,12 @@ namespace WebMvc.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    BusServiceInterface busService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, BusServiceInterface busService)
     {
         _logger = logger;
+        this.busService = busService;
     }
 
     public IActionResult Index()

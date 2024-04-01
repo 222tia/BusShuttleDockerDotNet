@@ -5,6 +5,10 @@ using System.Collections.Generic;
 namespace WebMvc.Services;
 
 public class BusShuttleDocker : DbContext {
+
+    public BusShuttleDocker(DbContextOptions<BusShuttleDocker> options)
+        : base(options)
+    { }
     public DbSet<Bus> Bus { get; set; }
     public DbSet<Driver> Driver { get; set; }
     public DbSet<Entry> Entry { get; set; }
