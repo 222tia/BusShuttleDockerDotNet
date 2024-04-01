@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DomainModel;
 using Microsoft.VisualBasic;
-using WebMvc.Database;
+using WebMvc.DB;
 
 namespace WebMvc.Services;
 
@@ -45,8 +45,8 @@ public class BusService : BusServiceInterface {
     }
 
     public void deleteBusByID(int id) {
-        var bus = _busShuttleDockerDB.Bus.Find(id);
-        if (bus != null) {
+        var existingBus = _busShuttleDockerDB.Bus.Find(id);
+        if (existingBus != null) {
             _busShuttleDockerDB.Bus.Remove(bus);
             _busShuttleDockerDB.SaveChanges();
         }
