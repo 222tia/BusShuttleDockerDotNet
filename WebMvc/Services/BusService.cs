@@ -35,9 +35,9 @@ public class BusService : BusServiceInterface {
     }
 
     public BusModel? findBusByID(int id) {
-        var bus = _busShuttleDockerDB.Bus.Find(id);
-        if (bus != null) {
-            return new BusModel(bus.Id, bus.BusNumber);
+        var existingBus = _busShuttleDockerDB.Bus.Find(id);
+        if (existingBus != null) {
+            return new BusModel(existingBus.Id, existingBus.BusNumber);
         }
         return null;
     }
