@@ -9,6 +9,7 @@ namespace WebMvc.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly BusShuttleDocker _database;
     BusServiceInterface busService;
     DriverServiceInterface driverService;
     EntryServiceInterface entryService;
@@ -18,8 +19,9 @@ public class HomeController : Controller
     UserServiceInterface userService;
 
     public HomeController(ILogger<HomeController> logger, BusServiceInterface busService , DriverServiceInterface driverService, EntryServiceInterface entryService, 
-    LoopServiceInterface loopService, RouteServiceInterface routeService, StopServiceInterface stopService, UserServiceInterface userService) {
+    LoopServiceInterface loopService, RouteServiceInterface routeService, StopServiceInterface stopService, UserServiceInterface userService, BusShuttleDocker database) {
         _logger = logger;
+        _database = database;
         this.busService = busService;
         this.driverService = driverService;
         this.entryService = entryService;
@@ -70,6 +72,7 @@ public class HomeController : Controller
     public async Task<IActionResult> BusEdit(int id, [Bind("BusNumber")] BusEditModel bus) {
         if (ModelState.IsValid) {
             this.busService.updateBusByID(id, bus.BusNumber);
+            await _database.SaveChangesAsync();
             return RedirectToAction("BusView");
         } else {
             return View(bus);
@@ -103,6 +106,7 @@ public class HomeController : Controller
     public async Task<IActionResult> DriverEdit(int id, [Bind("FirstName, LastName")] DriverEditModel driver) {
         if (ModelState.IsValid) {
             this.driverService.updateDriverByID(id, driver.FirstName, driver.LastName);
+            await _database.SaveChangesAsync();
             return RedirectToAction("DriverView");
         } else {
             return View(driver);
@@ -118,6 +122,7 @@ public class HomeController : Controller
     public async Task<IActionResult> DriverCreate([Bind("FirstName, LastName")] DriverCreateModel driver) {
         if (ModelState.IsValid) {
             this.driverService.createDriver(driver.FirstName, driver.LastName);
+            await _database.SaveChangesAsync();
             return RedirectToAction("DriverView");
         } else {
             return View();
@@ -151,6 +156,7 @@ public class HomeController : Controller
     public async Task<IActionResult> EntryEdit(int id, [Bind("TimeStamp, Boarded, LeftBehind")] EntryEditModel entry) {
         if (ModelState.IsValid) {
             this.entryService.updateEntryByID(id, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            await _database.SaveChangesAsync();
             return RedirectToAction("EntryView");
         } else {
             return View(entry);
@@ -200,6 +206,7 @@ public class HomeController : Controller
     public async Task<IActionResult> LoopEdit(int id, [Bind("Name")] LoopEditModel loop) {
         if (ModelState.IsValid) {
             this.loopService.updateLoopByID(id, loop.Name);
+            await _database.SaveChangesAsync();
             return RedirectToAction("LoopView");
         } else {
             return View(loop);
@@ -216,6 +223,7 @@ public class HomeController : Controller
     public async Task<IActionResult> LoopCreate([Bind("Name")] LoopCreateModel loop) {
         if (ModelState.IsValid) {
             this.loopService.createLoop(loop.Name);
+            await _database.SaveChangesAsync();
             return RedirectToAction("LoopView");
         } else {
             return View();
@@ -249,6 +257,7 @@ public class HomeController : Controller
     public async Task<IActionResult> RouteEdit(int id, [Bind("Order")] RouteEditModel route) {
         if (ModelState.IsValid) {
             this.routeService.updateRouteByID(id, route.Order);
+            await _database.SaveChangesAsync();
             return RedirectToAction("RouteView");
         } else {
             return View(route);
@@ -265,6 +274,7 @@ public class HomeController : Controller
     public async Task<IActionResult> RouteCreate([Bind("Order")] RouteCreateModel route) {
         if (ModelState.IsValid) {
             this.routeService.createRoute(route.Order);
+            await _database.SaveChangesAsync();
             return RedirectToAction("RouteView");
         } else {
             return View();
@@ -298,6 +308,7 @@ public class HomeController : Controller
     public async Task<IActionResult> StopEdit(int id, [Bind("Name, Latitude, Longitude")] StopEditModel stop) {
         if (ModelState.IsValid) {
             this.stopService.updateStopByID(id, stop.Name, stop.Latitude, stop.Longitude);
+            await _database.SaveChangesAsync();
             return RedirectToAction("StopView");
         } else {
             return View(stop);
@@ -313,6 +324,7 @@ public class HomeController : Controller
     public async Task<IActionResult> StopCreate([Bind("Name, Latitude, Longitude")] StopCreateModel stop) {
         if (ModelState.IsValid) {
             this.stopService.createStop(stop.Name, stop.Latitude, stop.Longitude);
+            await _database.SaveChangesAsync();
             return RedirectToAction("StopView");
         } else {
             return View();
