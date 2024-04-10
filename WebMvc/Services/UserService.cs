@@ -30,8 +30,8 @@ public class UserService : UserServiceInterface {
         }
     }
 
-    public void createUser(int id,string firstname, string lastname, string userName, string password) {
-        var newUser = new Services.User { Id = id, FirstName = firstname, LastName = lastname, UserName = userName, Password = password };
+    public void createUser(string firstname, string lastname, string userName, string password) {
+        var newUser = new Services.User {FirstName = firstname, LastName = lastname, UserName = userName, Password = password };
         _busShuttleDockerDB.User.Add(newUser);
         _busShuttleDockerDB.SaveChanges();
     }

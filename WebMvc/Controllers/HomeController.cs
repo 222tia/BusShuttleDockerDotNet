@@ -344,6 +344,54 @@ public class HomeController : Controller
 
     // ---------------- USER ---------------- 
 
+    public IActionResult UserView() {
+        return View(this.userService.getAllUsers().Select(u => UserViewModel.FromUser(u)));
+    }
+
+    public IActionResult UserEdit([FromRoute] int id) {
+        var user = this.userService.findUserByID(id);
+        return View(UserEditModel.FromUser(user));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UserEdit(int id, [Bind("FirstName, LastName, UserName, Password")] UserEditModel user) {
+        if (ModelState.IsValid) {
+            this.userService.updateUserByID(id, user.FirstName, user.LastName, user.UserName, user.Password);
+            await _database.SaveChangesAsync();
+            return RedirectToAction("UserView");
+        } else {
+            return View(user);
+        }
+    }
+
+    public IActionResult UserCreate() {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> UserCreate([Bind("FirstName, LastName, UserName, Password")] UserEditModel user) {
+        if (ModelState.IsValid) {
+            this.userService.createUser(user.FirstName, user.LastName, user.UserName, user.Password);
+            await _database.SaveChangesAsync();
+            return RedirectToAction("UserView");
+        } else {
+            return View();
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult UserDelete(int id) {
+        if (ModelState.IsValid) {
+            this.userService.deleteUserByID(id);
+            return RedirectToAction("UserView");
+        } else {
+            return View();
+        }
+    }
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
