@@ -31,6 +31,10 @@ public class HomeController : Controller
         this.userService = userService;
     }
 
+    public IActionResult ManagerView() {
+        return View();
+    }
+
     public IActionResult Index()
     {
         return View();
