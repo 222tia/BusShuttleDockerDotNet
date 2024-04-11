@@ -45,11 +45,11 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Index([Bind("UserName, Password")] UserModel user) {
         if (ModelState.IsValid) {
-            //if (this.userService.isManager(user.UserName, user.Password)) {
+            if (this.userService.isManager(user.UserName, user.Password)) {
                 return RedirectToAction("ManagerView");
-            //} else {
-            //    return View();
-            //}
+            } else {
+                return View();
+            }
         } else {
             return View();
         }

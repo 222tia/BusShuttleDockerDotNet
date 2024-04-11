@@ -53,7 +53,7 @@ public class UserService : UserServiceInterface {
     }
 
     public bool isManager(string userName, string password) {
-        var user = _busShuttleDockerDB.User.Find(userName, password);
+        var user = _busShuttleDockerDB.User.FirstOrDefault(u => u.UserName == userName && u.Password == password);
         if (user != null && user.Id == 1) {
             return true;
         } 
