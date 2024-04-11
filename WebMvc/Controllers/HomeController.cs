@@ -35,6 +35,10 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult DriverDashboard() {
+        return View();
+    }
+
     public IActionResult Index()
     {
         return View();
