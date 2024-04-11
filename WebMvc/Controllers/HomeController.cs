@@ -43,16 +43,25 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Index([Bind("UserName, Password")] UserModel user) {
-        if (ModelState.IsValid) {
-            if (this.userService.isManager(user.UserName, user.Password)) {
+    public IActionResult Index([Bind("UserName, Password")] UserModel user)
+    {
+        if (ModelState.IsValid)
+        {
+            if (this.userService.isManager(user.UserName, user.Password))
+            {
                 return RedirectToAction("ManagerDashboard");
-            } else if (this.userService.isDriver(user.UserName, user.Password)){
-                 return RedirectToAction("DriverDashboard");
-            } else {
+            }
+            else if (this.userService.isDriver(user.UserName, user.Password))
+            {
+                return RedirectToAction("DriverDashboard");
+            }
+            else
+            {
                 return View();
             }
-        } else {
+        }
+        else
+        {
             return View();
         }
     }
@@ -78,6 +87,7 @@ public class HomeController : Controller
     public async Task<IActionResult> BusCreate([Bind("BusNumber")] BusCreateModel bus) {
         if (ModelState.IsValid) {
             this.busService.createBus(bus.Id, bus.BusNumber);
+            await _database.SaveChangesAsync();
             return RedirectToAction("BusView");
         } else {
             return View();
@@ -195,6 +205,7 @@ public class HomeController : Controller
     public async Task<IActionResult> EntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         if (ModelState.IsValid) {
             this.entryService.createEntry(entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            await _database.SaveChangesAsync();
             return RedirectToAction("EntryView");
         } else {
             return View();
