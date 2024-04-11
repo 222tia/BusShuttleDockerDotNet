@@ -38,7 +38,23 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         return View();
+        //return RedirectToAction("ManagerView");
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Index([Bind("UserName, Password")] UserModel user) {
+        if (ModelState.IsValid) {
+            //if (this.userService.isManager(user.UserName, user.Password)) {
+                return RedirectToAction("ManagerView");
+            //} else {
+            //    return View();
+            //}
+        } else {
+            return View();
+        }
+    }
+
 
     public IActionResult Privacy()
     {

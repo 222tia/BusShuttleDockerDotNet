@@ -8,4 +8,5 @@ public interface UserServiceInterface {
     void createUser(string firstname, string lastname, string username, string password);
     UserModel? findUserByID(int id);
     void deleteUserByID(int id);
+    bool isManager(string userName, string password);
 }

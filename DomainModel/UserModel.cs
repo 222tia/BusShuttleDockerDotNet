@@ -7,12 +7,21 @@ public class UserModel {
     public string UserName { get; set; }
     public string Password { get; set; }
 
+    public UserModel(string username, string password) {
+        UserName = username;
+        Password = password;
+    }
+
     public UserModel(int id, string firstname, string lastname, string username, string password) {
         Id = id;
         FirstName = firstname;
         LastName = lastname;
         UserName = username;
         Password = password;
+    }
+
+    public UserModel() {
+
     }
 
     public void Update(string firstname, string lastname, string username, string password) {

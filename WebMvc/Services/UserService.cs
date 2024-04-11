@@ -51,5 +51,12 @@ public class UserService : UserServiceInterface {
             _busShuttleDockerDB.SaveChanges();
         }
     }
-        
+
+    public bool isManager(string userName, string password) {
+        var user = _busShuttleDockerDB.User.Find(userName, password);
+        if (user != null && user.Id == 1) {
+            return true;
+        } 
+        return false;
+    } 
 }
