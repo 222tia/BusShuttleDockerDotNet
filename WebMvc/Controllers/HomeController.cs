@@ -31,7 +31,7 @@ public class HomeController : Controller
         this.userService = userService;
     }
 
-    public IActionResult ManagerView() {
+    public IActionResult ManagerDashboard() {
         return View();
     }
 
@@ -46,7 +46,9 @@ public class HomeController : Controller
     public async Task<IActionResult> Index([Bind("UserName, Password")] UserModel user) {
         if (ModelState.IsValid) {
             if (this.userService.isManager(user.UserName, user.Password)) {
-                return RedirectToAction("ManagerView");
+                return RedirectToAction("ManagerDashboard");
+            } else if (this.userService.isDriver(user.UserName, user.Password)){
+                 return RedirectToAction("DriverDashboard");
             } else {
                 return View();
             }

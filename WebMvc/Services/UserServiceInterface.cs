@@ -9,4 +9,5 @@ public interface UserServiceInterface {
     UserModel? findUserByID(int id);
     void deleteUserByID(int id);
     bool isManager(string userName, string password);
+    bool isDriver(string userName, string password);
 }

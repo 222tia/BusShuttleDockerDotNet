@@ -59,4 +59,12 @@ public class UserService : UserServiceInterface {
         } 
         return false;
     } 
+
+    public bool isDriver(string userName, string password) {
+        var user = _busShuttleDockerDB.User.FirstOrDefault(u => u.UserName == userName && u.Password == password);
+        if (user != null && user.Id > 1) {
+            return true;
+        } 
+        return false;
+    } 
 }
