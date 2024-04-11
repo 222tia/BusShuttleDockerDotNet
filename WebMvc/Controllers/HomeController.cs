@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WebMvc.Models;
 using WebMvc.Services;
 using DomainModel;
@@ -36,6 +37,12 @@ public class HomeController : Controller
     }
 
     public IActionResult DriverDashboard() {
+        ViewBag.Loops = this.loopService.getAllLoops().Select(l => new SelectListItem { 
+            Value = l.Id.ToString(), Text = l.Name}).ToList();
+
+        ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
+            Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
+
         return View();
     }
 
