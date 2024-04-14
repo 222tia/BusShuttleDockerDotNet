@@ -43,7 +43,24 @@ public class HomeController : Controller
         ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
             Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
 
+        return RedirectToAction("DriverEntryCreate");
+    }
+
+    public IActionResult DriverEntryCreate() {
         return View();
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DriverEntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
+        if (ModelState.IsValid) {
+            this.entryService.createEntry(entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            await _database.SaveChangesAsync();
+            return RedirectToAction("DriverEntryCreate");
+        } else {
+            return View();
+        }
     }
 
     public IActionResult Index()
