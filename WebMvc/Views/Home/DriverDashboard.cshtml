@@ -9,10 +9,6 @@
         <form asp-action="DriverDashboard">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="StopId" class="control-label">Stop</label>
-                <select asp-for="StopId" class="form-control" asp-items="ViewBag.Stops"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="BusId" class="control-label">What is your bus number?</label>
                 <select asp-for="BusId" class="form-control" asp-items="ViewBag.Buses"></select>
             </div>

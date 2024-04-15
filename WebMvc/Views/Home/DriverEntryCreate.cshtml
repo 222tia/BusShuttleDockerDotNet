@@ -3,16 +3,15 @@
     ViewData["Title"] = "Create Entry";
 }
 <h2>Create Entry</h2>
-<a asp-action="DriverView">Sign Off</a>
+<a asp-action="Index">Sign Off</a>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="DriverEntryCreate">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="StopId" class="control-label"></label>
-                <input asp-for="StopId" class="form-control" />
-                <span asp-validation-for="StopId" class="text-danger"></span>
+                <label asp-for="StopId" class="control-label">Stop</label>
+                <select asp-for="StopId" class="form-control" asp-items="ViewBag.Stops"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TimeStamp" class="control-label"></label>

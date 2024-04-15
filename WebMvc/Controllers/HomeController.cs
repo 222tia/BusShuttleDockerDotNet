@@ -43,6 +43,12 @@ public class HomeController : Controller
         ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
             Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
 
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DriverDashboard([Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         return RedirectToAction("DriverEntryCreate");
     }
 
@@ -50,14 +56,13 @@ public class HomeController : Controller
         return View();
     }
 
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DriverEntryCreate([Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
-        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+        if (ModelState.IsValid) {
+            ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
             Value = s.Id.ToString(), Text = s.Name}).ToList();
 
-        if (ModelState.IsValid) {
             this.entryService.createEntry(entry.StopId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("DriverEntryCreate");
