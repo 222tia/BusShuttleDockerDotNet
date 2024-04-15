@@ -56,6 +56,9 @@ namespace WebMvc.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("StopId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Boarded")
                         .HasColumnType("INTEGER");
 

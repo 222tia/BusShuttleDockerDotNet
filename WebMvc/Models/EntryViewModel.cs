@@ -7,6 +7,7 @@ namespace WebMvc.Models;
 
 public class EntryViewModel {
     public int Id { get; set; }
+    public int StopId { get; set; }
     public DateTime TimeStamp { get; set; }
     public int Boarded { get; set; }
     public int LeftBehind { get; set; }
@@ -14,6 +15,7 @@ public class EntryViewModel {
     public static EntryViewModel FromEntry(EntryModel entry) {
         return new EntryViewModel {
             Id = entry.Id,
+            StopId = entry.StopId,
             TimeStamp = entry.TimeStamp,
             Boarded = entry.Boarded,
             LeftBehind = entry.LeftBehind 

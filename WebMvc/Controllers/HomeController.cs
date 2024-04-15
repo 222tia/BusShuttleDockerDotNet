@@ -53,9 +53,12 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DriverEntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
+    public async Task<IActionResult> DriverEntryCreate([Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
+        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+            Value = s.Id.ToString(), Text = s.Name}).ToList();
+
         if (ModelState.IsValid) {
-            this.entryService.createEntry(entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            this.entryService.createEntry(entry.StopId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("DriverEntryCreate");
         } else {
@@ -212,9 +215,9 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EntryEdit(int id, [Bind("TimeStamp, Boarded, LeftBehind")] EntryEditModel entry) {
+    public async Task<IActionResult> EntryEdit(int id, [Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryEditModel entry) {
         if (ModelState.IsValid) {
-            this.entryService.updateEntryByID(id, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            this.entryService.updateEntryByID(id, entry.StopId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("EntryView");
         } else {
@@ -229,9 +232,9 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
+    public async Task<IActionResult> EntryCreate([Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         if (ModelState.IsValid) {
-            this.entryService.createEntry(entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            this.entryService.createEntry(entry.StopId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("EntryView");
         } else {

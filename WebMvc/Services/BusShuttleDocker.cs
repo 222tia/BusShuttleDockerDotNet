@@ -33,6 +33,7 @@ public class Driver {
 
 public class Entry {
     public int Id { get; set; }
+    public int StopId { get; set; }
     public DateTime TimeStamp { get; set; }
     public int Boarded { get; set; }
     public int LeftBehind { get; set; }

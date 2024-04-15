@@ -8,6 +8,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.StopId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TimeStamp)
             </th>
             <th>
@@ -25,6 +28,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.TimeStamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StopId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Boarded)

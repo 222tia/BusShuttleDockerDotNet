@@ -6,6 +6,7 @@ namespace View.Models
 {
     public class DriverDashboardModel
     {
+        public int StopId { get; set; }
         public int BusId { get; set; }
         public int LoopId { get; set; }
     }
