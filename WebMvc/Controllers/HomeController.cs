@@ -53,6 +53,9 @@ public class HomeController : Controller
     }
 
     public IActionResult DriverEntryCreate() {
+        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+            Value = s.Id.ToString(), Text = s.Name}).ToList();
+            
         return View();
     }
 
@@ -60,9 +63,6 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DriverEntryCreate([Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         if (ModelState.IsValid) {
-            ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
-            Value = s.Id.ToString(), Text = s.Name}).ToList();
-
             this.entryService.createEntry(entry.StopId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("DriverEntryCreate");
