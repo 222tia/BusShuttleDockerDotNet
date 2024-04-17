@@ -44,7 +44,6 @@ namespace WebMvc.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StopId = table.Column<int>(type: "INTEGER", nullable: false),
                     TimeStamp = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Boarded = table.Column<int>(type: "INTEGER", nullable: false),
                     LeftBehind = table.Column<int>(type: "INTEGER", nullable: false)

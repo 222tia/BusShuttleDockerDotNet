@@ -15,14 +15,13 @@ namespace WebMvc.Services;
     }
     
     public List<EntryModel> getAllEntries(){
-        var allEntries = _busShuttleDockerDB.Entry.Select(e => new EntryModel(e.Id, e.StopId, e.TimeStamp, e.Boarded, e.LeftBehind)).ToList();
+        var allEntries = _busShuttleDockerDB.Entry.Select(e => new EntryModel(e.Id, e.TimeStamp, e.Boarded, e.LeftBehind)).ToList();
         return allEntries;
     }
 
-    public void updateEntryByID(int id, int stopid, DateTime timeStamp, int boarded, int leftBehind) {
+    public void updateEntryByID(int id, DateTime timeStamp, int boarded, int leftBehind) {
         var existingEntry = _busShuttleDockerDB.Entry.Find(id);
         if (existingEntry != null) {
-            existingEntry.StopId = stopid;
             existingEntry.TimeStamp = timeStamp;
             existingEntry.Boarded = boarded;
             existingEntry.LeftBehind = leftBehind;
@@ -30,8 +29,8 @@ namespace WebMvc.Services;
         }
     }
 
-    public void createEntry(int stopid, DateTime timeStamp, int boarded, int leftBehind) {
-        var newEntry = new Services.Entry { StopId = stopid, TimeStamp = timeStamp, Boarded = boarded, LeftBehind = leftBehind };
+    public void createEntry(DateTime timeStamp, int boarded, int leftBehind) {
+        var newEntry = new Services.Entry {TimeStamp = timeStamp, Boarded = boarded, LeftBehind = leftBehind };
         _busShuttleDockerDB.Entry.Add(newEntry);
         _busShuttleDockerDB.SaveChanges();
     }
@@ -39,7 +38,7 @@ namespace WebMvc.Services;
     public EntryModel? findEntryByID(int id) {
         var existingEntry = _busShuttleDockerDB.Entry.Find(id);
         if (existingEntry != null){
-            return new EntryModel(existingEntry.Id, existingEntry.StopId, existingEntry.TimeStamp, existingEntry.Boarded, existingEntry.LeftBehind);
+            return new EntryModel(existingEntry.Id, existingEntry.TimeStamp, existingEntry.Boarded, existingEntry.LeftBehind);
         }
         return null;
     }

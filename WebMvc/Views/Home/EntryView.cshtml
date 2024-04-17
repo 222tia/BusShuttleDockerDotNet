@@ -8,9 +8,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StopId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TimeStamp)
             </th>
             <th>
@@ -26,9 +23,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StopId)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TimeStamp)
                 </td>
