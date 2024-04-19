@@ -48,7 +48,7 @@ namespace WebMvc.Services;
     public EntryModel? findEntryByID(int id) {
         var existingEntry = _busShuttleDockerDB.Entry.Find(id);
         if (existingEntry != null){
-            return new EntryModel(existingEntry.Id, existingEntry.TimeStamp, existingEntry.Boarded, existingEntry.LeftBehind);
+            return new EntryModel(existingEntry.Id, existingEntry.StopId, existingEntry.LoopId, existingEntry.DriverId, existingEntry.TimeStamp, existingEntry.Boarded, existingEntry.LeftBehind);
         }
         return null;
     }

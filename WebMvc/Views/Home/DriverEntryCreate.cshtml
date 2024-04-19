@@ -10,6 +10,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
+                <label asp-for="StopId" class="control-label">Stop</label>
+                <select asp-for="StopId" class="form-control" asp-items="ViewBag.Stops"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="TimeStamp" class="control-label"></label>
                 <input asp-for="TimeStamp" class="form-control" />
                 <span asp-validation-for="TimeStamp" class="text-danger"></span>
