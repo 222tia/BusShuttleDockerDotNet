@@ -15,13 +15,16 @@ namespace WebMvc.Services;
     }
     
     public List<EntryModel> getAllEntries(){
-        var allEntries = _busShuttleDockerDB.Entry.Select(e => new EntryModel(e.Id, e.TimeStamp, e.Boarded, e.LeftBehind)).ToList();
+        var allEntries = _busShuttleDockerDB.Entry.Select(e => new EntryModel(e.Id, e.StopId, e.LoopId, e.DriverId, e.TimeStamp, e.Boarded, e.LeftBehind)).ToList();
         return allEntries;
     }
 
-    public void updateEntryByID(int id, DateTime timeStamp, int boarded, int leftBehind) {
+    public void updateEntryByID(int id, int stopid, int loopid, int driverid, DateTime timeStamp, int boarded, int leftBehind) {
         var existingEntry = _busShuttleDockerDB.Entry.Find(id);
         if (existingEntry != null) {
+            existingEntry.StopId = stopid;
+            existingEntry.LoopId = loopid;
+            existingEntry.DriverId = driverid;
             existingEntry.TimeStamp = timeStamp;
             existingEntry.Boarded = boarded;
             existingEntry.LeftBehind = leftBehind;
@@ -29,8 +32,15 @@ namespace WebMvc.Services;
         }
     }
 
-    public void createEntry(DateTime timeStamp, int boarded, int leftBehind) {
-        var newEntry = new Services.Entry {TimeStamp = timeStamp, Boarded = boarded, LeftBehind = leftBehind };
+    public void createEntry(int stopid, int loopid, int driverid, DateTime timeStamp, int boarded, int leftBehind) {
+        var newEntry = new Services.Entry {
+            StopId = stopid,
+            LoopId = loopid,
+            DriverId = driverid,
+            TimeStamp = timeStamp, 
+            Boarded = boarded, 
+            LeftBehind = leftBehind 
+            };
         _busShuttleDockerDB.Entry.Add(newEntry);
         _busShuttleDockerDB.SaveChanges();
     }
