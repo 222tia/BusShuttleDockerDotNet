@@ -64,7 +64,7 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DriverEntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         if (ModelState.IsValid) {
-            this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("DriverEntryCreate");
         } else {
@@ -223,7 +223,7 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EntryEdit(int id, [Bind("TimeStamp, Boarded, LeftBehind")] EntryEditModel entry) {
         if (ModelState.IsValid) {
-            this.entryService.updateEntryByID(id, entry.StopId, entry.LoopId, entry.DriverId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            this.entryService.updateEntryByID(id, entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("EntryView");
         } else {
@@ -240,7 +240,7 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         if (ModelState.IsValid) {
-            this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
             return RedirectToAction("EntryView");
         } else {
