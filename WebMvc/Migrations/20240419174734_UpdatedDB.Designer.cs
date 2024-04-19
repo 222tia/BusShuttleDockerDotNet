@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMvc.Services;
 
@@ -10,9 +11,11 @@ using WebMvc.Services;
 namespace WebMvc.Migrations
 {
     [DbContext(typeof(BusShuttleDocker))]
-    partial class BusShuttleDockerModelSnapshot : ModelSnapshot
+    [Migration("20240419174734_UpdatedDB")]
+    partial class UpdatedDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");

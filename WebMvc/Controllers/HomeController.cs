@@ -54,8 +54,8 @@ public class HomeController : Controller
     }
 
     public IActionResult DriverEntryCreate() {
-        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
-            Value = s.Id.ToString(), Text = s.Name}).ToList();
+        //ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+        //    Value = s.Id.ToString(), Text = s.Name}).ToList();
             
         return View();
     }
