@@ -46,13 +46,17 @@ public class HomeController : Controller
     public IActionResult Index([Bind("UserName, Password")] UserModel user) {
         if (ModelState.IsValid) {
             if (this.userService.isManager(user.UserName, user.Password)) {
+                _logger.LogInformation("Passed manager authentication - username:" + user.UserName.ToString() + " password:" + user.Password.ToString());
                 return RedirectToAction("ManagerDashboard");
             } else if (this.userService.isDriver(user.UserName, user.Password)) {
+                _logger.LogInformation("Passed driver authentication - username:" + user.UserName.ToString() + " password:" + user.Password.ToString());
                 return RedirectToAction("DriverDashboard");
             } else {
+                _logger.LogError("Failed user authentication");
                 return View();
             }
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -83,6 +87,7 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             return RedirectToAction("DriverEntryCreate");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
         
@@ -101,8 +106,17 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
+            _logger.LogInformation("New entry added - stop:" + entry.StopId.ToString() + 
+            " loop:" + entry.LoopId.ToString() +
+            " driver:" + entry.DriverId.ToString() +
+            " bus:" + entry.BusId.ToString() +
+            " timestamp:" + entry.TimeStamp.ToString() +
+            " boarded:" + entry.Boarded.ToString() +
+            " leftbehind:" + entry.LeftBehind.ToString() +
+            );
             return RedirectToAction("DriverEntryCreate");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -123,8 +137,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.busService.createBus(bus.Id, bus.BusNumber);
             await _database.SaveChangesAsync();
+            _logger.LogInformation("New bus added - id:" + bus.Id.ToString() + " busNumber:" + bus.BusNumber.ToString());
             return RedirectToAction("BusView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -140,8 +156,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.busService.updateBusByID(id, bus.BusNumber);
             await _database.SaveChangesAsync();
+            _logger.LogInformation("Bus edited - busNumber:" + bus.BusNumber.ToString());
             return RedirectToAction("BusView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(bus);
         }
     }
@@ -151,8 +169,10 @@ public class HomeController : Controller
     public IActionResult BusDelete(int id) {
         if (ModelState.IsValid) {
             this.busService.deleteBusByID(id);
+            _logger.LogInformation("Bus deleted");
             return RedirectToAction("BusView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -204,6 +224,7 @@ public class HomeController : Controller
             return RedirectToAction("DriverView");
         } else {
             return View();
+            _logger.LogError("Model state invalid - {time}.", DateTime.Now);
         }
     }
 
