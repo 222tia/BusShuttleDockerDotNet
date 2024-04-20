@@ -36,45 +36,6 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult DriverDashboard() {
-        ViewBag.Loops = this.loopService.getAllLoops().Select(l => new SelectListItem { 
-            Value = l.Id.ToString(), Text = l.Name}).ToList();
-
-        ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
-            Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
-
-        ViewBag.Drivers = this.driverService.getAllDrivers().Select(d => new SelectListItem { 
-            Value = d.Id.ToString(), Text = d.FirstName.ToString() + " " + d.LastName.ToString() }).ToList();
-
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult DriverDashboard([Bind("StopId, TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry)
-    {
-        return RedirectToAction("DriverEntryCreate");
-    }
-
-    public IActionResult DriverEntryCreate() {
-        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
-            Value = s.Id.ToString(), Text = s.Name}).ToList();
-            
-        return View();
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DriverEntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
-        if (ModelState.IsValid) {
-            this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
-            await _database.SaveChangesAsync();
-            return RedirectToAction("DriverEntryCreate");
-        } else {
-            return View();
-        }
-    }
-
     public IActionResult Index()
     {
         return View();
@@ -101,7 +62,52 @@ public class HomeController : Controller
         return View();
     }
 
-     // ---------------- BUS ---------------- 
+    // ---------------- DRIVER LOGIN ---------------- 
+
+    public IActionResult DriverDashboard() {
+        ViewBag.Loops = this.loopService.getAllLoops().Select(l => new SelectListItem { 
+            Value = l.Id.ToString(), Text = l.Name}).ToList();
+
+        ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
+            Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
+
+        ViewBag.Drivers = this.driverService.getAllDrivers().Select(d => new SelectListItem { 
+            Value = d.Id.ToString(), Text = d.FirstName.ToString() + " " + d.LastName.ToString() }).ToList();
+
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult DriverDashboard(EntryCreateModel entry) {
+        if (ModelState.IsValid) {
+            return RedirectToAction("DriverEntryCreate");
+        } else {
+            return View();
+        }
+        
+    }
+
+    public IActionResult DriverEntryCreate() {
+        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+            Value = s.Id.ToString(), Text = s.Name}).ToList();
+            
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DriverEntryCreate([Bind("Stop, Loop, Driver, Bus TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
+        if (ModelState.IsValid) {
+            this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+            await _database.SaveChangesAsync();
+            return RedirectToAction("DriverEntryCreate");
+        } else {
+            return View();
+        }
+    }
+
+    // ---------------- BUS ---------------- 
 
     public IActionResult BusView() {
         return View(this.busService.getAllBusses().Select(b => BusViewModel.FromBus(b)));
