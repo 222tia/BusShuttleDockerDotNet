@@ -8,6 +8,21 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TimeStamp)
             </th>
             <th>
@@ -23,6 +38,24 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StopId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoopId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DriverId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StopId)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TimeStamp)
                 </td>
