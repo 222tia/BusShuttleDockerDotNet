@@ -220,7 +220,7 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EntryEdit(int id, [Bind("TimeStamp, Boarded, LeftBehind")] EntryEditModel entry) {
+    public async Task<IActionResult> EntryEdit(int id, [Bind("Stop, Loop, Driver, Bus TimeStamp, Boarded, LeftBehind")] EntryEditModel entry) {
         if (ModelState.IsValid) {
             this.entryService.updateEntryByID(id, entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
@@ -237,7 +237,7 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> EntryCreate([Bind("TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
+    public async Task<IActionResult> EntryCreate([Bind("Stop, Loop, Driver, Bus TimeStamp, Boarded, LeftBehind")] EntryCreateModel entry) {
         if (ModelState.IsValid) {
             this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
