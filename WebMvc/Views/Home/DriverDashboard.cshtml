@@ -17,6 +17,10 @@
                 <select asp-for="LoopId" class="form-control" asp-items="ViewBag.Loops"></select>
             </div>
             <div class="form-group">
+                <label asp-for="DriverId" class="control-label">What is your name?</label>
+                <select asp-for="DriverId" class="form-control" asp-items="ViewBag.Drivers"></select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Start" class="btn btn-primary" />
             </div>
         </form>

@@ -9,5 +9,6 @@ namespace View.Models
         public int StopId { get; set; }
         public int BusId { get; set; }
         public int LoopId { get; set; }
+         public int DriverId { get; set; }
     }
 }

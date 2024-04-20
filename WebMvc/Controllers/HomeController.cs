@@ -43,6 +43,9 @@ public class HomeController : Controller
         ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
             Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
 
+        ViewBag.Drivers = this.driverService.getAllDrivers().Select(d => new SelectListItem { 
+            Value = d.Id.ToString(), Text = d.FirstName.ToString() + " " + d.LastName.ToString() }).ToList();
+
         return View();
     }
 
@@ -54,8 +57,8 @@ public class HomeController : Controller
     }
 
     public IActionResult DriverEntryCreate() {
-        //ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
-        //    Value = s.Id.ToString(), Text = s.Name}).ToList();
+        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+            Value = s.Id.ToString(), Text = s.Name}).ToList();
             
         return View();
     }
@@ -79,32 +82,22 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Index([Bind("UserName, Password")] UserModel user)
-    {
-        if (ModelState.IsValid)
-        {
-            if (this.userService.isManager(user.UserName, user.Password))
-            {
+    public IActionResult Index([Bind("UserName, Password")] UserModel user) {
+        if (ModelState.IsValid) {
+            if (this.userService.isManager(user.UserName, user.Password)) {
                 return RedirectToAction("ManagerDashboard");
-            }
-            else if (this.userService.isDriver(user.UserName, user.Password))
-            {
+            } else if (this.userService.isDriver(user.UserName, user.Password)) {
                 return RedirectToAction("DriverDashboard");
-            }
-            else
-            {
+            } else {
                 return View();
             }
-        }
-        else
-        {
+        } else {
             return View();
         }
     }
 
 
-    public IActionResult Privacy()
-    {
+    public IActionResult Privacy() {
         return View();
     }
 
