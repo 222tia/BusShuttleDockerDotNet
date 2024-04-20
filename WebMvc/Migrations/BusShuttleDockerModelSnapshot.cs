@@ -56,7 +56,10 @@ namespace WebMvc.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Boarded")
+                    b.Property<int>("StopId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LoopId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("BusId")
@@ -65,17 +68,14 @@ namespace WebMvc.Migrations
                     b.Property<int>("DriverId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("LeftBehind")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LoopId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("StopId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Boarded")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("LeftBehind")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
