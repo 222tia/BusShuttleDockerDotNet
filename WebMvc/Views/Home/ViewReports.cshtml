@@ -1,0 +1,63 @@
+@model IEnumerable<WebMvc.Models.EntryViewModel>
+@{
+    ViewData["Title"] = "Entry List";
+}
+<h2>Entry List</h2>
+<a asp-action="FilterReports">Search again</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoopId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BusId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeStamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boarded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeftBehind)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StopId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoopId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DriverId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeStamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Boarded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeftBehind)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

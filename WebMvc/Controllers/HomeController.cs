@@ -68,8 +68,26 @@ public class HomeController : Controller
 
     // ---------------- REPORT ---------------- 
 
-    public IActionResult ReportView() {
+    public IActionResult FilterReports() {
+        ViewBag.Loops = this.loopService.getAllLoops().Select(l => new SelectListItem { 
+            Value = l.Id.ToString(), Text = l.Name}).ToList();
+
+        ViewBag.Buses = this.busService.getAllBusses().Select(b => new SelectListItem { 
+            Value = b.Id.ToString(), Text = b.BusNumber.ToString()}).ToList();
+
+        ViewBag.Drivers = this.driverService.getAllDrivers().Select(d => new SelectListItem { 
+            Value = d.Id.ToString(), Text = d.FirstName.ToString() + " " + d.LastName.ToString() }).ToList();
+
+        ViewBag.Stops = this.stopService.getAllStops().Select(s => new SelectListItem { 
+            Value = s.Id.ToString(), Text = s.Name}).ToList();
+
         return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ViewReports() {
+        return View(this.entryService.getAllEntries().Select(e => EntryViewModel.FromEntry(e)));
     }
 
     // ---------------- DRIVER LOGIN ---------------- 
