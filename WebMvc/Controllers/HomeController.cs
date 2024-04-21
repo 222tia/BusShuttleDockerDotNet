@@ -194,8 +194,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.driverService.updateDriverByID(id, driver.FirstName, driver.LastName);
             await _database.SaveChangesAsync();
+            logger.LogInformation("Driver edited - FirstName:" + driver.FirstName.ToString() + " LastName: " + driver.LastName.ToString());
             return RedirectToAction("DriverView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(driver);
         }
     }
@@ -210,8 +212,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.driverService.createDriver(driver.FirstName, driver.LastName);
             await _database.SaveChangesAsync();
+            logger.LogInformation("Driver added - FirstName:" + driver.FirstName.ToString() + " LastName: " + driver.LastName.ToString());
             return RedirectToAction("DriverView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -221,10 +225,11 @@ public class HomeController : Controller
     public IActionResult DriverDelete(int id) {
         if (ModelState.IsValid) {
             this.driverService.deleteDriverByID(id);
+            _logger.LogInformation("Driver deleted");
             return RedirectToAction("DriverView");
         } else {
             return View();
-            _logger.LogError("Model state invalid - {time}.", DateTime.Now);
+            _logger.LogError("Model state invalid");
         }
     }
 
@@ -245,8 +250,17 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.entryService.updateEntryByID(id, entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
+            _logger.LogInformation("Entry edited - stop:" + entry.StopId.ToString() + 
+            " loop:" + entry.LoopId.ToString() +
+            " driver:" + entry.DriverId.ToString() +
+            " bus:" + entry.BusId.ToString() +
+            " timestamp:" + entry.TimeStamp.ToString() +
+            " boarded:" + entry.Boarded.ToString() +
+            " leftbehind:" + entry.LeftBehind.ToString() +
+            );
             return RedirectToAction("EntryView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(entry);
         }
     }
@@ -261,8 +275,17 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.entryService.createEntry(entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
             await _database.SaveChangesAsync();
+            _logger.LogInformation("New entry added - stop:" + entry.StopId.ToString() + 
+            " loop:" + entry.LoopId.ToString() +
+            " driver:" + entry.DriverId.ToString() +
+            " bus:" + entry.BusId.ToString() +
+            " timestamp:" + entry.TimeStamp.ToString() +
+            " boarded:" + entry.Boarded.ToString() +
+            " leftbehind:" + entry.LeftBehind.ToString() +
+            );
             return RedirectToAction("EntryView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -272,8 +295,10 @@ public class HomeController : Controller
     public IActionResult EntryDelete(int id) {
         if (ModelState.IsValid) {
             this.entryService.deleteEntryByID(id);
+            _logger.LogInformation("Entry deleted");
             return RedirectToAction("EntryView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -295,8 +320,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.loopService.updateLoopByID(id, loop.Name);
             await _database.SaveChangesAsync();
+            logger.LogInformation("Loop edited - Name:" + loop.Name.ToString());
             return RedirectToAction("LoopView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(loop);
         }
     }
@@ -312,8 +339,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.loopService.createLoop(loop.Name);
             await _database.SaveChangesAsync();
+            logger.LogInformation("New loop added - Name:" + loop.Name.ToString());
             return RedirectToAction("LoopView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -323,8 +352,10 @@ public class HomeController : Controller
     public IActionResult LoopDelete(int id) {
         if (ModelState.IsValid) {
             this.loopService.deleteLoopByID(id);
+            _logger.LogInformation("Loop deleted");
             return RedirectToAction("LoopView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -346,8 +377,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.routeService.updateRouteByID(id, route.Order);
             await _database.SaveChangesAsync();
+            logger.LogInformation("Route edited - Order:" + route.Order.ToString());
             return RedirectToAction("RouteView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(route);
         }
     }
@@ -363,8 +396,10 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.routeService.createRoute(route.Order);
             await _database.SaveChangesAsync();
+            logger.LogInformation("New route added - Order:" + route.Order.ToString());
             return RedirectToAction("RouteView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -374,8 +409,10 @@ public class HomeController : Controller
     public IActionResult RouteDelete(int id) {
         if (ModelState.IsValid) {
             this.routeService.deleteRouteByID(id);
+            _logger.LogInformation("Route deleted");
             return RedirectToAction("RouteView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -397,8 +434,12 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.stopService.updateStopByID(id, stop.Name, stop.Latitude, stop.Longitude);
             await _database.SaveChangesAsync();
+            logger.LogInformation("Stop edited - Name:" + stop.Name.ToString() + 
+            " Latitude: " + stop.Latitude.ToString() +
+            " Longitude: " + stop.Longitude.ToString());
             return RedirectToAction("StopView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(stop);
         }
     }
@@ -413,8 +454,12 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.stopService.createStop(stop.Name, stop.Latitude, stop.Longitude);
             await _database.SaveChangesAsync();
+            logger.LogInformation("New stop added - Name:" + stop.Name.ToString() + 
+            " Latitude: " + stop.Latitude.ToString() +
+            " Longitude: " + stop.Longitude.ToString());
             return RedirectToAction("StopView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -424,8 +469,10 @@ public class HomeController : Controller
     public IActionResult StopDelete(int id) {
         if (ModelState.IsValid) {
             this.stopService.deleteStopByID(id);
+            _logger.LogInformation("Stop deleted");
             return RedirectToAction("StopView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
@@ -447,8 +494,13 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.userService.updateUserByID(id, user.FirstName, user.LastName, user.UserName, user.Password);
             await _database.SaveChangesAsync();
+            logger.LogInformation("User edited - FirstName:" + user.FirstName.ToString() + 
+            " LastName: " + user.LastName.ToString() +
+            " UserName: " + user.UserName.ToString() +
+            " Password: " + user.Password.ToString());
             return RedirectToAction("UserView");
         } else {
+            _logger.LogError("Model state invalid");
             return View(user);
         }
     }
@@ -463,8 +515,13 @@ public class HomeController : Controller
         if (ModelState.IsValid) {
             this.userService.createUser(user.FirstName, user.LastName, user.UserName, user.Password);
             await _database.SaveChangesAsync();
+            logger.LogInformation("New user added - FirstName:" + user.FirstName.ToString() + 
+            " LastName: " + user.LastName.ToString() +
+            " UserName: " + user.UserName.ToString() +
+            " Password: " + user.Password.ToString());
             return RedirectToAction("UserView");
         } else {
+            _logger.LogError("Model state invalid")
             return View();
         }
     }
@@ -474,8 +531,10 @@ public class HomeController : Controller
     public IActionResult UserDelete(int id) {
         if (ModelState.IsValid) {
             this.userService.deleteUserByID(id);
+            _logger.LogInformation("User deleted");
             return RedirectToAction("UserView");
         } else {
+            _logger.LogError("Model state invalid");
             return View();
         }
     }
