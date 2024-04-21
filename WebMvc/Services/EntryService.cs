@@ -55,6 +55,14 @@ namespace WebMvc.Services;
         return null;
     }
 
+    public EntryModel? FindEntryByCredentials(int busId, int loopId, int driverId, int stopId) {
+        var entry = _busShuttleDockerDB.Entry.FirstOrDefault(e => e.BusId == busId && e.LoopId == loopId && e.DriverId == driverId && e.StopId == stopId);
+        if (entry != null){
+            return new EntryModel(entry.Id, entry.StopId, entry.LoopId, entry.DriverId, entry.BusId, entry.TimeStamp, entry.Boarded, entry.LeftBehind);
+        }
+        return null;
+    }
+
     public void deleteEntryByID(int id) {
         var existingEntry = _busShuttleDockerDB.Entry.Find(id);
         if (existingEntry != null) {

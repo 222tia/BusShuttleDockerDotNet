@@ -8,4 +8,5 @@ public interface EntryServiceInterface {
     void createEntry( int stopid, int loopid, int driverid, int busid,DateTime timeStamp, int boarded, int leftBehind);
     EntryModel? findEntryByID(int id);
     void deleteEntryByID(int id);
+    EntryModel? FindEntryByCredentials(int busid, int loopid, int driverid, int stopid);
 }
