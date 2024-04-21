@@ -220,9 +220,7 @@ public class HomeController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DriverCreate([Bind("FirstName, LastName")] DriverCreateModel driver) {
         if (ModelState.IsValid) {
-#pragma warning disable CS8604 // Possible null reference argument.
             this.driverService.createDriver(driver.FirstName, driver.LastName);
-#pragma warning restore CS8604 // Possible null reference argument.
             await _database.SaveChangesAsync();
             _logger.LogInformation("Driver added - FirstName:" + driver.FirstName.ToString() + " LastName: " + driver.LastName.ToString());
             return RedirectToAction("DriverView");
