@@ -66,6 +66,12 @@ public class HomeController : Controller
         return View();
     }
 
+    // ---------------- REPORT ---------------- 
+
+    public IActionResult ReportView() {
+        return View();
+    }
+
     // ---------------- DRIVER LOGIN ---------------- 
 
     public IActionResult DriverDashboard() {
