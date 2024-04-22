@@ -86,13 +86,8 @@ public class HomeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult ViewReports([FromRoute]int busid, int loopid, int driverid, int stopid) {
-        var entry = this.entryService.FindEntryByCredentials(busid, loopid, driverid, stopid);
-        if (entry != null) {
-            return View(EntryViewModel.FromEntry(entry));
-        } else {
-            return View();
-        }
+    public IActionResult ViewReports() {
+        return View(this.entryService.getAllEntries().Select(e => EntryViewModel.FromEntry(e)));
     }
 
     // ---------------- DRIVER LOGIN ---------------- 
