@@ -2,17 +2,57 @@
 @{
     ViewData["Title"] = "Manager Dashboard";
 }
+<style>
+    .manager-dash-div {
+        background-color: #1b6ec2;
+        border:#1861ac 2px solid;
+        border-radius: 10px;
+        padding: 10px; 
+        width: 30%;
+        margin: 20px;
+    }
+
+    .manager-dash-link {
+        text-decoration:none;
+        color: #fff
+    }
+
+    a:hover {
+        color: black;
+    }
+</style>
 
 <div class="text-center">
-    <h1 class="display-4">Manager Dashboard</h1>
-
-    <p><a asp-action="BusView">Buses</a></p>
-    <p><a asp-action="DriverView">Drivers</a></p>
-    <p><a asp-action="EntryView">Entries</a></p>
-    <p><a asp-action="LoopView">Loops</a></p>
-    <p><a asp-action="RouteView">Routes</a></p>
-    <p><a asp-action="StopView">Stops</a></p>
-    <p><a asp-action="UserView">Users</a></p>
-    <p><a asp-action="FilterReports">Reports</a></p>
-
+    <div>
+        <h1 style="padding:20px;background-color: #679ed6;color: #fff">Bus Shuttle Docker</h1>
+    </div>
+    <div style="padding:20px">
+        <h2>Manager Dashboard</h2>
+    </div>
+    <center>
+        <div class="manager-dash-div">
+            <h4><a asp-action="BusView" class=manager-dash-link>Buses</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="DriverView" class=manager-dash-link>Drivers</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="EntryView" class=manager-dash-link>Entries</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="LoopView" class=manager-dash-link>Loops</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="RouteView" class=manager-dash-link>Routes</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="StopView" class=manager-dash-link>Stops</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="UserView" class=manager-dash-link>Users</a></h4>
+        </div>
+        <div class="manager-dash-div">
+            <h4><a asp-action="FilterReports" class=manager-dash-link>Reports</a></h4>
+        </div>
+    </center>
 </div>
